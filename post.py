@@ -34,6 +34,7 @@ def main():
     if not isfile(f"{rootdir}/etc/redhat-release"):
         print("Only Redhat is supported")
         return
+# 
 #    eth3=netinterfaces.NetinterfaceRH("eth3","www.vipmobile.rs") 
 #    eth3.config(action)
     netints_list=netinterfaces.read_netinterfaces_file(f"{rootdir}/var/locconf/netif/netinterfaces")
