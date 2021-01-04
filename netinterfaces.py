@@ -472,6 +472,8 @@ class NetinterfaceRH(Netinterface):
         def remove(self,action):
             #local: i, j
             self.action=action
+            if self.action not in ["-verify", "-fix", "-install", "-upgrade", "-remove" ]:
+                return
             self.set_vars()
             self.__read_ifcfg_file()
             for j in ["SLAVE=","MASTER=","IPADDR=","NETMASK=","VLAN=yes","BRIDGE=","ONBOOT=yes"]:

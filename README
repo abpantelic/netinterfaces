@@ -1,0 +1,23 @@
+
+Set of scripts that can be used to configure network 
+interfaces on Red Hat (like) systems (ifcfg-* files).
+
+These scripts are part of locconf configuration management
+system but they can be used standalone also.
+Net interfaces description file is in:
+var/locconf/netif/netinterfaces
+The first column is the interface name (like eth3, bond01, 
+bridge136, eno192, ens224, eth4.205, bond3.131) and the
+second is dns name or bond/bridge/none (like www.vipmobile.rs,
+bond1, bridge136).
+See setup_test.sh for example.
+To test it download pre.py, post.py, netinterfaces.py and 
+setup_test.sh to the test dir, run setup_test.sh,
+export LOCCONF_ROOTDIR=`pwd`, ./post.py, ./post.py -fix,
+change var/locconf/netif/netinterfaces file and repeat 
+post scripts; ./pre.py, remove some interfaces from 
+netinterfaces description file and then run post scripts.
+For debug info LOCCONF_DEBUG=2 ./post.py
+
+Aleksandar Pantelic abpantelic@gmail.com
+
