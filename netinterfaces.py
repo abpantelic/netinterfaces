@@ -123,7 +123,7 @@ class Netinterface:
             print("hosts:", hosts_list)
 
 class NetinterfaceRH(Netinterface):
-        __bonding_flag=0
+        __bonding_flag=[]
         def __init__(self,interface, address=""):
             Netinterface.__init__(self,interface, address)
             #
@@ -251,17 +251,17 @@ class NetinterfaceRH(Netinterface):
                                 dodati=0
                     if dodati :
                         self.__add_line(j)
-                if NetinterfaceRH.__bonding_flag :
+                if self.address in NetinterfaceRH.__bonding_flag :
                     self.__conf_bond_opts()
             else :
-                if NetinterfaceRH.__bonding_flag and not re.match("bond.+\..+", self.interface) :
+                if len(NetinterfaceRH.__bonding_flag) and not re.match("bond.+\..+", self.interface) :
                     print("interfaces should follow bond")
                 for j in ["MASTER=","SLAVE="] :
                     for i in  self.netinterface_list:
                         if re.match(j, i) :
                             self.__remove_line(i)
             if re.match("bond", self.interface):
-                NetinterfaceRH.__bonding_flag=1
+                NetinterfaceRH.__bonding_flag.append(self.interface)
 
         def __find_bond_opts(self):
             #local:bond_opt, mon
@@ -320,7 +320,6 @@ class NetinterfaceRH(Netinterface):
                 linija=linija.rstrip()
                 bond_list.append(linija)
             bond_file.close()
-            NetinterfaceRH.__bondig_flag=0
             bond_list_changed=0
             dodati=1
             for i in bond_list:
@@ -350,7 +349,7 @@ class NetinterfaceRH(Netinterface):
                 for i in bond_list:
                     bond_file.write(i+linesep)
                 bond_file.close()
-            NetinterfaceRH.__bonding_flag=0
+            NetinterfaceRH.__bonding_flag.remove(self.address)
 
         def __config_bridge(self):
             #local: i, dodati
