@@ -254,7 +254,7 @@ class NetinterfaceRH(Netinterface):
                 if self.address in NetinterfaceRH.__bonding_flag :
                     self.__conf_bond_opts()
             else :
-                if len(NetinterfaceRH.__bonding_flag) and not re.match("bond.+\..+", self.interface) :
+                if len(NetinterfaceRH.__bonding_flag) and not re.match("bond.+\..+", self.interface) and not re.match("bond.+:.+", self.interface) :
                     print("interfaces should follow bond")
                 for j in ["MASTER=","SLAVE="] :
                     for i in  self.netinterface_list:
@@ -506,7 +506,7 @@ def read_netinterfaces_file(netinterface_file):
         linija=netif.readline()
         if not linija:
             break
-        if re.match("^#", linija):
+        if re.match("^#", linija) or not re.search("[a-zA-Z]",linija):
             continue            
         interface_lin=linija.split()
         if len(interface_lin) == 1:
