@@ -506,9 +506,14 @@ def read_netinterfaces_file(netinterface_file):
         linija=netif.readline()
         if not linija:
             break
-        if re.match("^#", linija) or not re.search("[a-zA-Z]",linija):
+        if re.match("^#", linija) :
             continue            
+        if not re.search("[a-zA-Z]",linija):
+            print(f"ignore {linija}")
+            continue
         interface_lin=linija.split()
+        if len(interface_lin)>2 :
+            print(f"ignore more than 2 field in {linija}")
         if len(interface_lin) == 1:
             netinterfaces_list.append(NetinterfaceRH(interface_lin[0]))
         else:
