@@ -39,7 +39,7 @@ def main():
     netints_list=netinterfaces.read_netinterfaces_file(f"{rootdir}/var/locconf/netif/netinterfaces")
     for netint in netints_list:
         if debug :
-            print(f"### checking {netint.interface}")
+            print(f"### checking {netint._interface}")
         netint.config(action)
 
     if isfile(f"{temp}/netinterfaces") :
@@ -47,11 +47,11 @@ def main():
             netints_list_old=netinterfaces.read_netinterfaces_file(f"{temp}/netinterfaces")
             tmp_list=[]
             for netint in netints_list :
-                tmp_list.append(netint.interface)
+                tmp_list.append(netint._interface)
             for netint in netints_list_old :
-                if netint.interface not in tmp_list :
+                if netint._interface not in tmp_list :
                     if debug:
-                        print(f"### remove {netint.interface}")
+                        print(f"### remove {netint._interface}")
                     netint.remove(action)
 
 if __name__ == "__main__":

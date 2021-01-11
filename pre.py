@@ -39,7 +39,7 @@ def main():
     if action == "-remove" :
         for netint in netints_list:
             if debug :
-                print(f"### removing {netint.interface}")
+                print(f"### removing {netint._interface}")
             netint.remove(action)
     if isfile(f"{rootdir}/var/locconf/netif/netinterfaces") :
         if action in ["-fix", "-upgrade", "-verify"]: 
